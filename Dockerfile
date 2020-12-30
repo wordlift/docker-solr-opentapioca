@@ -1,4 +1,4 @@
-FROM solr:8.5.2
+FROM solr:8.6.3
 
 COPY lib/* /opt/solr/server/solr-webapp/webapp/WEB-INF/lib/
 
