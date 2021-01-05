@@ -21,11 +21,14 @@ jobs:
         run: |
           DOCKER_IMAGE=ghcr.io/wordlift/solr-ng
           VERSION=latest
+          SOLR_VERSION=latest
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/}
+            SOLR_VERSION=$(echo $GITHUB_REF | pcregrep -o1 '^refs\/tags\/([0-9]+\.[0-9]+\.[0-9]+)')
           fi
           TAGS="${DOCKER_IMAGE}:${VERSION}"
           echo ::set-output name=tags::${TAGS}
+          echo ::set-output name=solr_version::${SOLR_VERSION}
 
       - 
         name: Set up Docker Buildx
@@ -58,6 +61,8 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ steps.prep.outputs.tags }}
+          build-args: |
+            SOLR_VERSION=${{ steps.prep.outputs.solr_version }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
     
