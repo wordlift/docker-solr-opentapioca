@@ -1,8 +1,8 @@
-ARG SOLR_VERSION=8.7.0
+ARG SOLR_VERSION=8.11.1
 
 FROM solr:$SOLR_VERSION
 
-ARG SOLR_VERSION=8.7.0
+ARG SOLR_VERSION=8.11.1
 
 COPY lib/${SOLR_VERSION}/* /opt/solr/server/solr-webapp/webapp/WEB-INF/lib/
 
