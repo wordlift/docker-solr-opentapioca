@@ -25,8 +25,8 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ${{ github.repository }}
-            ghcr.io/${{ github.repository }}
+            ${{ github.repository_owner }}/solr-opentapioca
+            ghcr.io/${{ github.repository_owner }}/solr-opentapioca
           # generate Docker tags based on the following events/attributes
           tags: |
             type=ref,event=branch
