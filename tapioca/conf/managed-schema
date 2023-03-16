@@ -581,9 +581,6 @@
     </analyzer>
     <analyzer type="query">
       <tokenizer class="solr.StandardTokenizerFactory"/>
-      <filter class="solr.MorfologikFilterFactory" dictionary="lang/morfologik/polish.dict"/>
-      <filter class="solr.LowerCaseFilterFactory"/>
-      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
     </analyzer>
   </fieldType>
