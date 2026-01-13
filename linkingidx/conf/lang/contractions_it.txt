@@ -1,0 +1,22 @@
+# Set of Italian contractions for ElisionFilter
+c
+l 
+all 
+dall 
+dell 
+nell 
+sull 
+coll 
+pell 
+gl 
+agl 
+dagl 
+degl 
+negl 
+sugl 
+un 
+m 
+t 
+s 
+v 
+d

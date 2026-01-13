@@ -1,0 +1,4 @@
+# Set of Irish contractions for ElisionFilter
+d
+m
+b

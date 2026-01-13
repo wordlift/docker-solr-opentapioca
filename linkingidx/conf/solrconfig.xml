@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2020 Redlink GmbH
+  -->
+<config>
+    <luceneMatchVersion>8.5.2</luceneMatchVersion>
+    <dataDir>${solr.data.dir:}</dataDir>
+
+    <directoryFactory name="DirectoryFactory"
+                      class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/>
+    <codecFactory class="solr.SchemaCodecFactory"/>
+    <schemaFactory class="ClassicIndexSchemaFactory"/>
+
+    <indexConfig>
+        <lockType>${solr.lock.type:native}</lockType>
+    </indexConfig>
+    <jmx/>
+    <updateHandler class="solr.DirectUpdateHandler2">
+        <updateLog>
+            <str name="dir">${solr.ulog.dir:}</str>
+            <int name="numVersionBuckets">${solr.ulog.numVersionBuckets:65536}</int>
+        </updateLog>
+
+        <autoCommit> <!-- use commitwithin!! -->
+            <maxTime>${solr.autoCommit.maxTime:1200000}</maxTime> <!-- every 20min -->
+            <openSearcher>false</openSearcher>
+        </autoCommit>
+
+        <autoSoftCommit><!-- use commitwithin!! -->
+            <maxDocs>${solr.autoSoftCommit.maxDocs:10000}</maxDocs>
+            <maxTime>${solr.autoSoftCommit.maxTime:120000}</maxTime> <!-- every 2min -->
+        </autoSoftCommit>
+
+        <commitWithin/>
+
+    </updateHandler>
+
+    <query>
+        <maxBooleanClauses>${solr.max.booleanClauses:1024}</maxBooleanClauses>
+
+        <!-- Filter Cache
+
+             Caches Bitsets of filters (e.g. for a vocabulary) - usefull
+        -->
+        <filterCache class="solr.FastLRUCache"
+                     size="${solr.filterCache.size:16384}"
+                     initialSize="${solr.filterCache.initialSize:1024}"
+                     autowarmCount="0"/>
+
+        <!-- Query Result Cache
+             we do not do any queries on this core!
+        -->
+        <queryResultCache class="solr.LRUCache"
+                          size="64"
+                          initialSize="0"
+                          autowarmCount="0"/>
+
+        <!-- Document Cache
+             Most important for as this will avoid disc IO for extracted entities!
+        -->
+        <documentCache class="solr.LRUCache"
+                       size="${solr.docCache.size:131072}"
+                       initialSize="${solr.docCache.initialSize:16384}"
+                       autowarmCount="0"/>
+
+        <!-- custom cache currently used by block join - not used -->
+        <cache name="perSegFilter"
+               class="solr.search.LRUCache"
+               size="0"
+               initialSize="0"
+               autowarmCount="0"
+               regenerator="solr.NoOpRegenerator"/>
+
+        <enableLazyFieldLoading>true</enableLazyFieldLoading>
+        <queryResultWindowSize>20</queryResultWindowSize>
+        <queryResultMaxDocsCached>200</queryResultMaxDocsCached>
+        <listener event="newSearcher" class="solr.QuerySenderListener">
+            <arr name="queries">
+            </arr>
+        </listener>
+        <listener event="firstSearcher" class="solr.QuerySenderListener">
+            <arr name="queries">
+            </arr>
+        </listener>
+        <useColdSearcher>false</useColdSearcher>
+    </query>
+
+    <requestDispatcher>
+        <httpCaching never304="true"/>
+    </requestDispatcher>
+
+    <!-- /select is not used ... just keep it for Solr Admin -->
+    <requestHandler name="/select" class="solr.SearchHandler">
+        <lst name="defaults">
+            <str name="df">iri</str>
+            <int name="rows">10</int>
+            <str name="echoParams">all</str>
+        </lst>
+    </requestHandler>
+
+    <!-- /tag does all the entity linking work -->
+    <requestHandler name="/tag" class="solr.TaggerRequestHandler">
+        <lst name="defaults">
+
+            <str name="fl">id,ds_id,iri</str>
+
+            <str name="echoParams">explicit</str>
+            <str name="debug">false</str>
+        </lst>
+        <lst name="invariants">
+            <str name="matchText">true</str>
+            <bool name="partialMatches">false</bool>
+        </lst>
+    </requestHandler>
+
+    <!-- used by the Solr Admin analysis UI -->
+    <requestHandler name="/analysis/field" startup="lazy" class="solr.FieldAnalysisRequestHandler"/>
+
+    <!-- WRITERS -->
+    <queryResponseWriter name="json" class="solr.JSONResponseWriter"/>
+    
+</config>
