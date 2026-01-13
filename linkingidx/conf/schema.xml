@@ -1,0 +1,1010 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  ~ Copyright (c) 2020 Redlink GmbH
+  -->
+<schema name="entity linking index" version="1.6">
+  
+  <field name="_version_"             type="long"         indexed="true"  stored="true"/>
+  <field name="_root_"                type="string"       indexed="true"  stored="true"  required="false" multiValued="false"/>
+  
+  <!-- The database id of the entity -->
+  <field name="id"                    type="string"       indexed="true"  stored="true"  required="true"  multiValued="false"/>
+  <!-- The database id of dataset containing the entity -->
+  <field name="ds_id"                 type="string"       indexed="true"  stored="true"  required="true"  multiValued="false"/>
+  <!-- The iri of the entity -->
+  <field name="iri"                   type="string"       indexed="false" stored="true"  required="true"  multiValued="false"/>
+
+  <!-- dynamic fields to be used for filters -->
+  <!-- TODO: move to stored="false" after debugging the schema -->
+  <dynamicField name="str_*"          type="string"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="str_sv_*"       type="string"       indexed="true"  stored="true" multiValued="false"/>
+  <dynamicField name="bool_*"         type="boolean"      indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="bool_sv_*"      type="boolean"      indexed="true"  stored="true" multiValued="false"/>
+  <dynamicField name="int_*"          type="int"          indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="int_sv_*"       type="int"          indexed="true"  stored="true" multiValued="false"/>
+  <dynamicField name="long_*"         type="long"         indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="long_sv_*"      type="long"         indexed="true"  stored="true" multiValued="false"/>
+  <dynamicField name="float_*"        type="float"        indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="float_sv_*"     type="float"        indexed="true"  stored="true" multiValued="false"/>
+  <dynamicField name="double_*"       type="double"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="double_sv_*"    type="double"       indexed="true"  stored="true" multiValued="false"/>
+  <dynamicField name="date_*"         type="date"         indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="date_sv_*"      type="date"         indexed="true"  stored="true" multiValued="false"/>
+  <dynamicField name="daterange_*"    type="daterange"    indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="daterange_sv_*" type="daterange"    indexed="true"  stored="true" multiValued="false"/>
+  <dynamicField name="latlon_*"       type="latlon"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="latlon_sv_*"    type="latlon"       indexed="true"  stored="true" multiValued="false"/>
+  <dynamicField name="geo_*"          type="location_rpt" indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="geo_sv_*"       type="location_rpt" indexed="true"  stored="true" multiValued="false"/>
+  <dynamicField name="txt_*"          type="string"       indexed="false" stored="true" multiValued="true"/>
+
+  <!-- dynamic fields for storing labels used for tagging -->
+  <!-- TODO: move to stored="false" after debugging the schema -->
+  <dynamicField name="tag_de_*"       type="tag_de"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_en_*"       type="tag_en"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_ar_*"       type="tag_ar"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_hy_*"       type="tag_hy"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_eu_*"       type="tag_eu"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_bn_*"       type="tag_bn"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_pt-BR_*"    type="tag_pt_BR"    indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_bg_*"       type="tag_bg"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_ca_*"       type="tag_ca"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_zh-Hant_*"  type="tag_cjk"      indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_ko_*"       type="tag_cjk"      indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_zh_*"       type="tag_cjk"      indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_zh-Hans_*"  type="tag_zh"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_ja_*"       type="tag_ja"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_cs_*"       type="tag_cs"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_da_*"       type="tag_da"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_nl_*"       type="tag_nl"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_et_*"       type="tag_et"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_fi_*"       type="tag_fi"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_fr_*"       type="tag_fr"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_gl_*"       type="tag_gl"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_el_*"       type="tag_el"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_hi_*"       type="tag_hi"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_hu_*"       type="tag_hu"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_id_*"       type="tag_id"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_ga_*"       type="tag_ga"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_it_*"       type="tag_it"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_lv_*"       type="tag_lv"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_no_*"       type="tag_no"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_nb_*"       type="tag_nb"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_nn_*"       type="tag_nn"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_fa_*"       type="tag_fa"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_pl_*"       type="tag_pl"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_pt_*"       type="tag_pt"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_ro_*"       type="tag_ro"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_ru_*"       type="tag_ru"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_sr_*"       type="tag_sr"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_es_*"       type="tag_es"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_sv_*"       type="tag_sv"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_th_*"       type="tag_th"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_tr_*"       type="tag_tr"       indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_uk_*"       type="tag_uk"       indexed="true"  stored="true" multiValued="true"/>
+  
+  <!-- Languages explecitly mapped to ICU (as of Solr documentation) -->
+  <dynamicField name="tag_he_*"       type="tag_icu"      indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_lo_*"       type="tag_icu"      indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_my_*"       type="tag_icu"      indexed="true"  stored="true" multiValued="true"/>
+  <dynamicField name="tag_km_*"       type="tag_icu"      indexed="true"  stored="true" multiValued="true"/>
+
+  <!-- no language field -->
+  <dynamicField name="tag_none_*"     type="tag_icu"      indexed="true"  stored="true" multiValued="true"/>
+  <!-- all language field (does icu folding (e.g. 'ä' to 'a') to increase recall for for language agnostic linking
+       NOTE: This index does NOT support copy field. Indexers need to fill the tag_all_* field
+    -->
+  <dynamicField name="tag_all_*"      type="tag_icu_fold" indexed="true"  stored="true" multiValued="true"/>
+
+  <!-- unknown language field -->
+  <dynamicField name="tag_*"          type="tag_icu"      indexed="true"  stored="true" multiValued="true"/>
+
+
+  <dynamicField name="*_geo_sv"       type="location_rpt" indexed="true"  stored="true" multiValued="false"/>
+
+  <uniqueKey>id</uniqueKey>
+
+  <fieldType name="string" class="solr.StrField"            docValues="true" sortMissingLast="true" omitNorms="false" />
+  <fieldType name="uri" class="solr.StrField"               docValues="true" sortMissingLast="true" omitNorms="false" />
+  <fieldType name="boolean" class="solr.BoolField"                           sortMissingLast="true" />
+  <fieldType name="int" class="solr.IntPointField"          docValues="true" sortMissingLast="true" positionIncrementGap="0"/>
+  <fieldType name="long" class="solr.LongPointField"        docValues="true" sortMissingLast="true" positionIncrementGap="0"/>
+  <fieldType name="float" class="solr.FloatPointField"      docValues="true" sortMissingLast="true" positionIncrementGap="0"/>
+  <fieldType name="double" class="solr.DoublePointField"    docValues="true" sortMissingLast="true" positionIncrementGap="0"/>
+  <fieldType name="date" class="solr.DatePointField"        docValues="true" sortMissingLast="true" positionIncrementGap="0"/>
+
+  <fieldType name="latlon" class="solr.LatLonPointSpatialField" docValues="true"/>
+  <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
+    geo="true"
+    distErrPct="0.025"
+    maxDistErr="0.001"
+    distanceUnits="kilometers" />
+
+  <fieldType name="lowercase" class="solr.TextField"        docValues="true" sortMissingLast="true" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+    <analyzer>
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory" />
+    </analyzer>
+  </fieldType>
+
+      
+  <!-- field types -->
+  <fieldType name="daterange" class="solr.DateRangeField" omitNorms="true" />
+
+  <fieldType name="tag_ws" class="solr.TextField" positionIncrementGap="100">
+      <analyzer>
+          <tokenizer class="solr.WhitespaceTokenizerFactory" />
+      </analyzer>
+  </fieldType>
+
+  <!--
+   GERMAN (de)
+    -->
+  <fieldType name="tag_de" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory" />
+          <filter class="solr.StemmerOverrideFilterFactory" dictionary="lang/stemdict_de.tsv" ignoreCase="true"/>
+          <filter class="solr.GermanLightStemFilterFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory" />
+          <filter class="solr.StemmerOverrideFilterFactory" dictionary="lang/stemdict_de.tsv" ignoreCase="true"/>
+          <filter class="solr.GermanLightStemFilterFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!--
+   ENGLISH (en)
+    -->
+  <fieldType name="tag_en" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory" />
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.EnglishMinimalStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory" />
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.EnglishMinimalStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   ARABIC (ar)
+   -->
+  <fieldType name="tag_ar" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory" />
+          <!-- for any non-arabic -->
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <!-- normalizes ﻯ to ﻱ, etc -->
+          <filter class="solr.ArabicNormalizationFilterFactory"/>
+          <filter class="solr.ArabicStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory" />
+          <!-- for any non-arabic -->
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <!-- normalizes ﻯ to ﻱ, etc -->
+          <filter class="solr.ArabicNormalizationFilterFactory"/>
+          <filter class="solr.ArabicStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!--
+   ARMENIAN (hy)
+    -->
+  <fieldType name="tag_hy" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory" />
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Armenian"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory" />
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Armenian"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   BASQUE (eu)
+    -->
+  <fieldType name="tag_eu" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory" />
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Basque"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory" />
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Basque"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   BENGALI (bn)
+   -->
+  <fieldType name="tag_bn" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.BengaliNormalizationFilterFactory"/>
+          <filter class="solr.BengaliStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.BengaliNormalizationFilterFactory"/>
+          <filter class="solr.BengaliStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   BRAZILIAN PORTUGUESE (pt_BR)
+    -->
+  <fieldType name="tag_pt_BR" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.BrazilianStemFilterFactory" />
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.BrazilianStemFilterFactory" />
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!--
+   BULGARIAN (bg)
+    -->
+  <fieldType name="tag_bg" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.BulgarianStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.BulgarianStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!-- BURMESE (lo, mya, km) via ICU tokenizer so they are covered by
+   the generic text field and need not be added explicitly
+   -->
+
+  <!--
+   CATALAN (ca)
+   -->
+  <fieldType name="tag_ca" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- removes l', etc -->
+          <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_ca.txt"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Catalan"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- removes l', etc -->
+          <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_ca.txt"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Catalan"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   CJK (Chinese, Chinese Simplified (zh-Hans), Chinese Traditional (zh-Hant),
+    Japanese, Korean) configuration that
+   -->
+  <fieldType name="tag_cjk" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.ICUTokenizerFactory"/>
+          <!-- normalize width before bigram, as e.g. half-width dakuten combine  -->
+          <filter class="solr.CJKWidthFilterFactory"/>
+          <!-- for any non-CJK -->
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.ICUTokenizerFactory"/>
+          <!-- normalize width before bigram, as e.g. half-width dakuten combine  -->
+          <filter class="solr.CJKWidthFilterFactory"/>
+          <!-- for any non-CJK -->
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!--
+   CHINESE (zh, zh-Hans)
+   -->
+  <fieldType name="tag_zh" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.HMMChineseTokenizerFactory"/>
+          <filter class="solr.CJKWidthFilterFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.HMMChineseTokenizerFactory"/>
+          <filter class="solr.CJKWidthFilterFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!--
+   JAPANESE (ja)
+    -->
+  <fieldType name="tag_ja" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <!-- handle iteration marks: -->
+          <charFilter class="solr.JapaneseIterationMarkCharFilterFactory" />
+          <tokenizer class="solr.JapaneseTokenizerFactory" mode="search" userDictionary="lang/userdict_ja.txt"/>
+          <filter class="solr.JapaneseBaseFormFilterFactory"/>
+          <filter class="solr.CJKWidthFilterFactory"/>
+          <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <!-- handle iteration marks: -->
+          <charFilter class="solr.JapaneseIterationMarkCharFilterFactory" />
+          <tokenizer class="solr.JapaneseTokenizerFactory" mode="search" userDictionary="lang/userdict_ja.txt"/>
+          <filter class="solr.JapaneseBaseFormFilterFactory"/>
+          <filter class="solr.CJKWidthFilterFactory"/>
+          <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!--
+   CZECH (cs)
+   -->
+  <fieldType name="tag_cs" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.CzechStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.CzechStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   DANISH (da)
+   -->
+  <fieldType name="tag_da" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Danish"/>
+          <!-- <filter class="solr.ScandinavianNormalizationFilterFactory"/> -->
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Danish"/>
+          <!-- <filter class="solr.ScandinavianNormalizationFilterFactory"/> -->
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   DUTCH (nl)
+   -->
+  <fieldType name="tag_nl" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.StemmerOverrideFilterFactory" dictionary="lang/stemdict_nl.txt" ignoreCase="false"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Dutch"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.StemmerOverrideFilterFactory" dictionary="lang/stemdict_nl.txt" ignoreCase="false"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Dutch"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   ESTONIAN (et)
+    -->
+  <fieldType name="tag_et" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Estonian"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Estonian"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   Finish (fi)
+   -->
+  <fieldType name="tag_fi" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.FinnishLightStemFilterFactory" />
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.FinnishLightStemFilterFactory" />
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   FRENCH (fr)
+   -->
+  <fieldType name="tag_fr" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- removes l', etc -->
+          <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_fr.txt"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.FrenchLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- removes l', etc -->
+          <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_fr.txt"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.FrenchLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   GALICIAN (gl)
+   -->
+  <fieldType name="tag_gl" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.GalicianMinimalStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.GalicianMinimalStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   GREEK (el)
+    -->
+  <fieldType name="tag_el" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- greek specific lowercase for sigma -->
+          <filter class="solr.GreekLowerCaseFilterFactory"/>
+          <filter class="solr.GreekStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- greek specific lowercase for sigma -->
+          <filter class="solr.GreekLowerCaseFilterFactory"/>
+          <filter class="solr.GreekStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!--
+   HEBREW (he) - now supported by the ICU Tokenizer (text_icu)
+   -->
+  
+  <!--
+   HINDI (hi)
+   -->
+  <fieldType name="tag_hi" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- normalizes unicode representation -->
+          <filter class="solr.IndicNormalizationFilterFactory"/>
+          <!-- normalizes variation in spelling -->
+          <filter class="solr.HindiNormalizationFilterFactory"/>
+          <filter class="solr.HindiStemFilterFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- normalizes unicode representation -->
+          <filter class="solr.IndicNormalizationFilterFactory"/>
+          <!-- normalizes variation in spelling -->
+          <filter class="solr.HindiNormalizationFilterFactory"/>
+          <filter class="solr.HindiStemFilterFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!--
+   HUNGARIAN (hu)
+    -->
+  <fieldType name="tag_hu" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.HungarianLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.HungarianLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   INDONESIAN (id)
+   -->
+  <fieldType name="tag_id" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <!-- for a less aggressive approach (only inflectional suffixes), set stemDerivational to false -->
+          <filter class="solr.IndonesianStemFilterFactory" stemDerivational="true"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <!-- for a less aggressive approach (only inflectional suffixes), set stemDerivational to false -->
+          <filter class="solr.IndonesianStemFilterFactory" stemDerivational="true"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   IRISH (ga)
+   -->
+  <fieldType name="tag_ga" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- removes d', etc -->
+          <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_ga.txt"/>
+          <!-- removes n-, etc. position increments is intentionally false! -->
+          <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/hyphenations_ga.txt"/>
+          <filter class="solr.IrishLowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Irish"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- removes d', etc -->
+          <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_ga.txt"/>
+          <!-- removes n-, etc. position increments is intentionally false! -->
+          <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/hyphenations_ga.txt"/>
+          <filter class="solr.IrishLowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Irish"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   ITALIAN (it)
+   -->
+  <fieldType name="tag_it" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- removes l', etc -->
+          <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_it.txt"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.ItalianLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <!-- removes l', etc -->
+          <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_it.txt"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.ItalianLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   LATVIAN (lv)
+   -->
+  <fieldType name="tag_lv" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.LatvianStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.LatvianStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   NORWEGIAN (no, nb, nn)
+   -->
+  <fieldType name="tag_no" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.NorwegianLightStemFilterFactory" variant="no"/>
+          <!-- <filter class="solr.ScandinavianNormalizationFilterFactory"/> -->
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.NorwegianLightStemFilterFactory" variant="no"/>
+          <!-- <filter class="solr.ScandinavianNormalizationFilterFactory"/> -->
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  <fieldType name="tag_nb" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.NorwegianLightStemFilterFactory" variant="nb"/>
+          <!-- <filter class="solr.ScandinavianNormalizationFilterFactory"/> -->
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.NorwegianLightStemFilterFactory" variant="nb"/>
+          <!-- <filter class="solr.ScandinavianNormalizationFilterFactory"/> -->
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  <fieldType name="tag_nn" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.NorwegianLightStemFilterFactory" variant="nn"/>
+          <!-- <filter class="solr.ScandinavianNormalizationFilterFactory"/> -->
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.NorwegianLightStemFilterFactory" variant="nn"/>
+          <!-- <filter class="solr.ScandinavianNormalizationFilterFactory"/> -->
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!--
+   PERSIAN / FRASI (fa)
+   -->
+  <fieldType name="tag_fa" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <!-- for ZWNJ -->
+          <charFilter class="solr.PersianCharFilterFactory"/>
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.ArabicNormalizationFilterFactory"/>
+          <filter class="solr.PersianNormalizationFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <charFilter class="solr.PersianCharFilterFactory"/>
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.ArabicNormalizationFilterFactory"/>
+          <filter class="solr.PersianNormalizationFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   POLISH (pl)
+   -->
+  <fieldType name="tag_pl" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.MorfologikFilterFactory" dictionary="lang/morfologik/polish.dict"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.MorfologikFilterFactory" dictionary="lang/morfologik/polish.dict"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+  <!--
+   PORTUGUESE (pt)
+   -->
+  <fieldType name="tag_pt" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.PortugueseLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.PortugueseLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   ROMANIAN (ro)
+   -->
+  <fieldType name="tag_ro" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Romanian"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Romanian"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+    RUSSIAN (ru)
+   -->
+  <fieldType name="tag_ru" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RussianLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RussianLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   SERBIAN (sr)
+    -->
+  <fieldType name="tag_sr" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SerbianNormalizationFilterFactory" haircut="bald"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SerbianNormalizationFilterFactory" haircut="bald"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   SPANISH (es)
+   -->
+  <fieldType name="tag_es" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SpanishLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SpanishLightStemFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   SWEDISH (sv)
+   -->
+  <fieldType name="tag_sv" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SwedishLightStemFilterFactory"/>
+          <!-- <filter class="solr.ScandinavianNormalizationFilterFactory"/> -->
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.SwedishLightStemFilterFactory"/>
+          <!-- <filter class="solr.ScandinavianNormalizationFilterFactory"/> -->
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   THAI (th)
+   -->
+  <fieldType name="tag_th" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.ThaiTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.ThaiTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   TURKISH (tr)
+   -->
+  <fieldType name="tag_tr" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.ApostropheFilterFactory"/>
+          <filter class="solr.TurkishLowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Turkish"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.ApostropheFilterFactory"/>
+          <filter class="solr.TurkishLowerCaseFilterFactory"/>
+          <filter class="solr.SnowballPorterFilterFactory" language="Turkish"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   UKRAINIAN (uk)
+   -->
+  <fieldType name="tag_uk" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.MorfologikFilterFactory" dictionary="lang/morfologik/ukrainian.dict"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.StandardTokenizerFactory"/>
+          <filter class="solr.MorfologikFilterFactory" dictionary="lang/morfologik/ukrainian.dict"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   TEXT ICU
+   -->
+  <fieldType name="tag_icu" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.ICUTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.ICUTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+  
+  <!--
+   TEXT ICU with Folding (intended for multi language linking)
+   -->
+  <fieldType name="tag_icu_fold" class="solr.TextField" positionIncrementGap="100" postingsFormat="FST50" omitNorms="true" omitTermFreqAndPositions="true">
+      <analyzer type="index">
+          <tokenizer class="solr.ICUTokenizerFactory"/>
+          <!-- normalize width before bigram, as e.g. half-width dakuten combine  -->
+          <filter class="solr.CJKWidthFilterFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.ICUFoldingFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+      </analyzer>
+      <analyzer type="query">
+          <tokenizer class="solr.ICUTokenizerFactory"/>
+          <!-- normalize width before bigram, as e.g. half-width dakuten combine  -->
+          <filter class="solr.CJKWidthFilterFactory"/>
+          <filter class="solr.ICUFoldingFilterFactory"/>
+          <filter class="solr.LowerCaseFilterFactory"/>
+          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+      </analyzer>
+  </fieldType>
+
+</schema>

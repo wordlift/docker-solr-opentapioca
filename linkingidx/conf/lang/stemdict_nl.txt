@@ -1,0 +1,5 @@
+# Set of overrides for the dutch stemmer
+fiets	fiets
+bromfiets	bromfiets
+ei	eier
+kind	kinder
