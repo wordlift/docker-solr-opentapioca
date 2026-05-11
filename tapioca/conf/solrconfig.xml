@@ -120,6 +120,7 @@
        or "BEST_COMPRESSION".
   -->
   <codecFactory class="solr.SchemaCodecFactory" />
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
 
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        Index Config - These settings control low-level behavior of indexing

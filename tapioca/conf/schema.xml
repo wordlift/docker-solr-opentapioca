@@ -174,9 +174,7 @@
       <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
     </analyzer>
     <analyzer type="query">
-      <tokenizer class="solr.OpenNLPTokenizerFactory" tokenizerModel="opennlp/da-token.bin" sentenceModel="opennlp/da-sent.bin"/>
-      <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="opennlp/da-pos-maxent.bin"/>
-      <filter class="solr.TypeTokenFilterFactory" types="opennlp/keep.pos.txt" useWhitelist="true"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_da.txt" ignoreCase="true"/>
       <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
@@ -192,9 +190,7 @@
       <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
     </analyzer>
     <analyzer type="query">
-      <tokenizer class="solr.OpenNLPTokenizerFactory" tokenizerModel="opennlp/de-token.bin" sentenceModel="opennlp/de-sent.bin"/>
-      <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="opennlp/de-pos-maxent.bin"/>
-      <filter class="solr.TypeTokenFilterFactory" types="opennlp/keep.pos.txt" useWhitelist="true"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_de.txt" ignoreCase="true"/>
       <filter class="solr.GermanNormalizationFilterFactory"/>
@@ -225,9 +221,7 @@
       <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
     </analyzer>
     <analyzer type="query">
-      <tokenizer class="solr.OpenNLPTokenizerFactory" tokenizerModel="opennlp/en-token.bin" sentenceModel="opennlp/en-sent.bin"/>
-      <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="opennlp/en-pos-maxent.bin"/>
-      <filter class="solr.TypeTokenFilterFactory" types="opennlp/keep.pos.txt" useWhitelist="true"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
       <filter class="solr.StopFilterFactory" words="lang/stopwords_en.txt" ignoreCase="true"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
@@ -451,9 +445,7 @@
       <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
     </analyzer>
     <analyzer type="query">
-      <tokenizer class="solr.OpenNLPTokenizerFactory" tokenizerModel="opennlp/it-token.bin" sentenceModel="opennlp/it-sent.bin"/>
-      <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="opennlp/it-pos-maxent.bin"/>
-      <filter class="solr.TypeTokenFilterFactory" types="opennlp/keep.pos.txt" useWhitelist="true"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
       <filter class="solr.ElisionFilterFactory" articles="lang/contractions_it.txt" ignoreCase="true"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_it.txt" ignoreCase="true"/>
@@ -535,9 +527,7 @@
       <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
     </analyzer>
     <analyzer type="query">
-      <tokenizer class="solr.OpenNLPTokenizerFactory" tokenizerModel="opennlp/nl-token.bin" sentenceModel="opennlp/nl-sent.bin"/>
-      <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="opennlp/nl-pos-maxent.bin"/>
-      <filter class="solr.TypeTokenFilterFactory" types="opennlp/keep.pos.txt" useWhitelist="true"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_nl.txt" ignoreCase="true"/>
       <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
@@ -593,9 +583,7 @@
       <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
     </analyzer>
     <analyzer type="query">
-      <tokenizer class="solr.OpenNLPTokenizerFactory" tokenizerModel="opennlp/pt-token.bin" sentenceModel="opennlp/pt-sent.bin"/>
-      <filter class="solr.OpenNLPPOSFilterFactory" posTaggerModel="opennlp/pt-pos-maxent.bin"/>
-      <filter class="solr.TypeTokenFilterFactory" types="opennlp/keep.pos.txt" useWhitelist="true"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
       <filter class="solr.LowerCaseFilterFactory"/>
       <filter class="solr.StopFilterFactory" format="snowball" words="lang/stopwords_pt.txt" ignoreCase="true"/>
       <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
